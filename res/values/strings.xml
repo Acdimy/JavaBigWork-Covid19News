@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">UItest</string>
+    <string name="main_menu_settings">设置</string>
+    <string name="main_menu_favorites">喜好</string>
+    <string name="main_menu_about">关于</string>
+    <string name="main_menu_news">新闻</string>
+
+    <string name="nav_news_title">新闻</string>
+    <string name="nav_favorites_title">收藏</string>
+    <string name="nav_settings_title">设置</string>
+    <string name="nav_about_title">关于</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>
