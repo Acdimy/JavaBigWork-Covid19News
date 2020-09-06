@@ -7,4 +7,7 @@
 
     <color name="colorTabSelectedText">#FFFFFF</color>
     <color name="colorTabText">#994400</color>
+    <color name="colorTitle">#333333</color>
+    <color name="colorBackground">#E5E5E5</color>
+    <color name="colorDetail">#999999</color>
 </resources>

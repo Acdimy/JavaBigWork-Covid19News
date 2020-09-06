@@ -33,7 +33,7 @@ public interface NewsListContract_interface {
          * 获取新闻成功
          * @param loadCompleted 是否加载完成
          */
-        void ifSuccess(boolean loadCompleted);
+        void OnSuccess(boolean loadCompleted);
         /*
         获取新闻失败
          */

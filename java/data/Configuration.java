@@ -37,9 +37,13 @@ public class Configuration {
     所有分类
     @return
      */
-    public List<Category> allCategories()
+    public static List<Category> allCategories()
     {
         List<Category> list = new ArrayList<>();
+        for (int x = 0;x < Constant.CATEGERIES_COUNT;x++)
+        {
+            list.add(new Category(Constant.CATEGERIES[x],x));
+        }
         return list;
     }
     /*

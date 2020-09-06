@@ -19,12 +19,16 @@ import com.example.uitest.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import data.Configuration;
+import news.newslist.NewsListFregment;
+
 
 public class newsFragment extends Fragment {
     private TabLayout newsTabLayout;
     private ViewPager newsViewPaper;
+    private newsPaperAdapter mPagerAdapter;
     private String searchKeyWord = "";
-
+    private List<Configuration.Category> newsCategoreis = new ArrayList<Configuration.Category>();
 
     public newsFragment(){}
 
@@ -43,6 +47,9 @@ public class newsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.newsCategoreis = Configuration.allCategories();
+        this.mPagerAdapter = new newsPaperAdapter(getChildFragmentManager(),this.newsCategoreis);
     }
 
     @Nullable
@@ -54,16 +61,12 @@ public class newsFragment extends Fragment {
 
         this.newsTabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         //add Tablayout
+        for (int i = 0;i < this.newsCategoreis.size();i++)
+        {
+            this.newsTabLayout.addTab(newsTabLayout.newTab());
+        }
 
-        this.newsTabLayout.addTab(this.newsTabLayout.newTab().setText("tab1"));
-        this.newsTabLayout.addTab(this.newsTabLayout.newTab().setText("tab2"));
-        this.newsTabLayout.addTab(this.newsTabLayout.newTab().setText("tab3"));
-        this.newsTabLayout.addTab(this.newsTabLayout.newTab().setText("tab4"));
-        this.newsTabLayout.addTab(this.newsTabLayout.newTab().setText("tab5"));
-        this.newsTabLayout.addTab(this.newsTabLayout.newTab().setText("tab6"));
-
-
-        //this.newsViewPaper.setAdapter();
+        this.newsViewPaper.setAdapter(this.mPagerAdapter);
         this.newsTabLayout.setupWithViewPager(this.newsViewPaper);
 
         return view;
@@ -72,21 +75,36 @@ public class newsFragment extends Fragment {
 
     private class newsPaperAdapter extends FragmentStatePagerAdapter
     {
+        private List<Configuration.Category> mCategories;
 
-        public newsPaperAdapter(FragmentManager fm)
+        public newsPaperAdapter(FragmentManager fm,List<Configuration.Category> list)
         {
             super(fm);
+            this.mCategories = list;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mCategories.get(position).title;
         }
 
         @NonNull
         @Override
         public Fragment getItem(int position) {
-            return null;
+            return NewsListFregment.newInstance(this.mCategories.get(position).idx,this.mCategories.get(position).title);
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            Log.i("newFragment",String.valueOf(position) + this.mCategories.get(position).title);
+            NewsListFregment f = (NewsListFregment) super.instantiateItem(container, position);
+            f.setKeyword(this.mCategories.get(position).title);
+            return f;
         }
 
         @Override
         public int getCount() {
-            return 0;
+            return mCategories.size();
         }
     }
 
